@@ -1,0 +1,22 @@
+amzs_setting_index:
+  path: ""
+  controller: Amzs\SettingBundle\Controller\SettingController::index
+  methods: [GET]
+
+amzs_setting_datatable_fetch_data:
+  path: /datatable/data
+  controller: Amzs\SettingBundle\Controller\SettingController::data
+  methods: [GET, POST]
+
+amzs_setting_add:
+  path: /add
+  controller: Amzs\SettingBundle\Controller\SettingController::add
+  methods: [GET, POST]
+
+amzs_setting_edit:
+  path: /edit/{id}
+  controller: Amzs\SettingBundle\Controller\SettingController::edit
+  methods: [GET, POST]
+  requirements:
+    # Cho phép là số từ 1-9 hoặc chính xác chuỗi __ID__
+    id: '[1-9]\d*|__ID__'

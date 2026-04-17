@@ -1,0 +1,115 @@
+{% extends '@AmzsCore/base.html.twig' %}
+{% block title %}CMS-Setting Management{% endblock %}
+
+{% block toolbar %}
+    {% embed '@AmzsCore/Layout/_toolbar.html.twig' %}
+        {% block toolbar_title %}Setting Management{% endblock toolbar_title %}
+
+        {% block toolbar_breadcrumbs %}
+            <!--begin::Item-->
+            <li class="breadcrumb-item text-muted">
+                <a href="#" class="text-muted text-hover-primary">Setting</a>
+            </li>
+            <!--end::Item-->
+        {% endblock toolbar_breadcrumbs %}
+
+        {% block toolbar_button_actions %}
+            <a href="{{ path(amzs_setting_add_route) }}" data-amz-btn-open-modal
+               class="btn btn-sm fw-bold btn-primary">Create</a>
+        {% endblock toolbar_button_actions %}
+    {% endembed %}
+{% endblock %}
+{% block body %}
+    {% embed '@AmzsCore/Components/Table/base.html.twig' with { show_language_filter: false } %}{% endembed %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        "use strict";
+
+        $(function () {
+            // KTModalForm.init();
+            // Đăng ký callback cho Setting Form
+            KTModalForm.registerCallback(function ($modalEl) {
+                initSettingCollection($modalEl);
+            });
+            KTAmzDataTable.init({
+                ajaxUrl: "{{ path(amzs_setting_data_route) }}",
+                columns: [
+                    // cột Actions
+                    {
+                        data: null,
+                        title: 'Actions',
+                        width: '80px',
+                        align: 'center',
+                        orderable: false,
+                        render: function (data, type, row) {
+                            const editUrl   = "{{ path(amzs_setting_edit_route, {'id': '__ID__'}) }}".replace('__ID__', row.id);
+
+                            return `
+                              <a href="${editUrl}" data-amz-btn-open-modal class="btn btn-icon btn-active-light-primary w-30px h-30px me-2">
+                                        <span data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-original-title="Edit">
+                                            {{ icon('edit') }}
+                                        </span>
+                                    </a>
+                                `;
+                        }
+                    },
+                    { data: 'index', title: 'ID', width: '50px',  orderable: false, align: 'center' },
+                    {
+                        data: 'setting_key',
+                        title: 'Key',
+                    },
+                    {
+                        data: 'setting_value',
+                        title: 'Value',
+                        render: function (data, type, row) {
+                            if(row.setting_type === '{{ setting_type_image }}'){
+                                return `<img src="${data}" class="img-thumbnail w-175px">`;
+                                return `<img src="${data}" class="img-thumbnail w-175px">`;
+                            }
+                            if(row.setting_type === '{{ setting_type_json }}'){
+                                return `<ul>${row.setting_value.map(el => `<li><mark>${el.key}</mark>: ${el.value}</li>`).join('')}</ul>`;
+                            }
+
+                            return `${data}`;
+                        }
+                    },
+                    { data: 'created_at', title: 'Created At' },
+                    { data: 'updated_at', title: 'Updated At' },
+                ]
+            });
+        });
+
+        // Hàm này sẽ được gọi lại mỗi khi form reload động
+        function initSettingCollection($modalEl) {
+            const $collection = $modalEl.find('.collection-items');
+            if (!$collection.length) return;
+
+            const prototype = $collection.data('prototype');
+            let index = parseInt($collection.data('index')) || 0;
+
+            // Xóa event cũ để tránh duplicate
+            $modalEl.off('click', '.btn-add-item')
+                .on('click', '.btn-add-item', function () {
+                    const newForm = prototype.replace(/__name__/g, index);
+                    const $newItem = $(`
+            <li class="collection-item p-3">
+                ${newForm}
+            </li>
+        `);
+                    $collection.append($newItem);
+                    index++;
+                    $collection.data('index', index);
+                });
+
+            $modalEl.off('click', '.btn-remove-item')
+                .on('click', '.btn-remove-item', function () {
+                    $(this).closest('.collection-item').fadeOut(300, function () {
+                        $(this).remove();
+                    });
+                });
+        }
+    </script>
+{% endblock %}

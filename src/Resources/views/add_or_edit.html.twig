@@ -1,0 +1,66 @@
+{% embed '@AmzsCore/Components/Modal/base.html.twig' %}
+    {% block body %}
+        {{ form_start(form) }}
+        <div class="{{ form.settingType.vars.row_attr.class | default }}">
+            {{ form_label(form.settingType) }}
+            <div class="d-flex gap-5 align-items-center">
+                {% for type in form.settingType.children %}
+                    <div class="d-flex gap-2 align-items-center">
+                        {{ form_widget(type) }}
+                        <span>{{ type.vars.label }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {{ form_row(form.settingKey) }}
+        {{ form_row(form.description) }}
+
+        {# Phần này sẽ được JS thay đổi động #}
+        <div id="setting-value-container">
+            {% if form.settingType.vars.value == setting_type_json %}
+                <div class="collection-wrapper">
+                    {{ form_label(form.settingValue) }}
+
+                    <ul class="collection-items list-unstyled border rounded"
+                        data-index="{{ form.settingValue|length > 0 ? form.settingValue|last.vars.name + 1 : 0 }}"
+                        data-prototype="{{ include('@AmzsSetting/_json_item.html.twig', {
+                            'item': form.settingValue.vars.prototype
+                        }) |e('html_attr') }}">
+
+                        {% for item in form.settingValue %}
+                            <li class="collection-item p-3">
+                                {{ include('@AmzsSetting/_json_item.html.twig', {
+                                    'item': item
+                                }) }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                    <button type="button" class="btn btn-sm btn-success btn-add-item">
+                        + New item
+                    </button>
+                </div>
+                {% do form.settingValue.setRendered %}
+            {% elseif form.settingType.vars.value == setting_type_image %}
+                <label class="form-label my-2">Image</label>
+                <div class="flex-column d-flex gap-3" data-controller="core-gallery"
+                     data-action="Admin--picture-global:pickedPicture@window->core-gallery#listenPickedPicture">
+                    <div class="d-flex gap-2">
+                        <a href="#"   data-amz-btn-open-modal  data-stacked="true"
+                           class="btn btn-sm fw-bold btn-primary">Pick</a>
+                        <a href="#" data-action="core-gallery#cancelImage"
+                           class="btn btn-sm fw-bold btn-secondary">Cancel</a>
+                    </div>
+                    <div data-core-gallery-target="areaReview">
+                        <img src="{{ asset(form.settingValue.vars.value) }}" alt="review" class="w-75px img-thumbnail" data-core-gallery-target="review">
+                    </div>
+                    {{ form_widget(form.settingValue, {attr: {'data-core-gallery-target': "input"}}) }}
+                </div>
+            {% else %}
+                {{ form_row(form.settingValue) }}
+            {% endif %}
+        </div>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    {% endblock %}
+{% endembed %}

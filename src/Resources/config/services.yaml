@@ -1,0 +1,45 @@
+
+services:
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true
+
+  Amzs\SettingBundle\:
+    resource: '../../../src/'
+    exclude:
+      - '../../DependencyInjection/'
+      - '../../Kernel.php'
+      - '../../Constant/'
+      - '../../AmzsSettingBundle.php'
+
+  # routing - loader
+  amzs.setting_bundle_setting_loader_routing:
+    class: Amzs\SettingBundle\Routing\AmzsSettingLoader
+    tags: [ routing.loader ]
+
+  # repository
+  amzs.setting_bundle.setting_repository:
+    class: Amzs\SettingBundle\Repository\SettingRepository
+    public: false
+    lazy: true
+
+  # services
+  amzs.setting_bundle.setting_service:
+    class: Amzs\SettingBundle\Service\SettingService
+    public: false
+    lazy: true
+    arguments:
+      $repository: '@amzs.setting_bundle.setting_repository'
+
+  Amzs\SettingBundle\Service\SettingDataTable:
+    public: false
+    lazy: true
+    arguments:
+      $package: '@assets.packages'
+      $repository: '@amzs.setting_bundle.setting_repository'
+      $thumbnailDefaultPath: '%amzs_core.assets_manager.thumbnail_default%'
+
+  # Create an alias, so that - by default - if you type-hint SiteUpdateManager,
+  # the site_update_manager.superadmin will be used
+  Amzs\SettingBundle\Service\SettingService: '@amzs.setting_bundle.setting_service'
+  Amzs\SettingBundle\Repository\SettingRepository: '@amzs.setting_bundle.setting_repository'

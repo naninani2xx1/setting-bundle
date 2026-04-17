@@ -1,0 +1,43 @@
+{
+    "name": "amzs/setting-bundle",
+    "description": "Module management setting for the CMS system",
+    "type": "symfony-bundle",
+    "require": {
+        "php": ">=7.4",
+        "symfony/framework-bundle": "^5.4 || ^6.4 || ^7.0",
+        "symfony/security-bundle": "^5.4 || ^6.4 || ^7.0",
+        "doctrine/orm": "^2.10 || ^3.0",
+        "doctrine/doctrine-bundle": "^2.7",
+        "symfony/validator": "^5.4 || ^6.4 || ^7.0",
+        "twig/extra-bundle": "^3.11",
+        "symfony/twig-bundle": "^5.4 || ^6.4 || ^7.0",
+        "symfony/asset": "^5.4 || ^6.4 || ^7.0",
+        "twig/twig": "^3.11",
+        "ext-json": "*",
+        "symfony/serializer-pack": "^1.3",
+        "amzs/core-bundle": "dev-main"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Amzs\\SettingBundle\\": "src/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../core-bundle"
+        }
+    ],
+    "authors": [
+        {
+            "name": "naninani2xx1",
+            "email": "nhchuong2001@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require-dev": {
+        "symfony/debug-bundle": "5.4.x-dev",
+        "symfony/var-dumper": "5.4.x-dev"
+    }
+}
