@@ -6,7 +6,7 @@
             <div class="d-flex gap-5 align-items-center">
                 {% for type in form.settingType.children %}
                     <div class="d-flex gap-2 align-items-center">
-                        {{ form_widget(type) }}
+                        {{ form_widget(type, {attr: {'class': form.settingType.vars.attr.class | default}}) }}
                         <span>{{ type.vars.label }}</span>
                     </div>
                 {% endfor %}

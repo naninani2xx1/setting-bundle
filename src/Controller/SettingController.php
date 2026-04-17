@@ -77,13 +77,22 @@ class SettingController extends AbstractController
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->manager->persist($setting);
-            $this->manager->flush();
+            if ($request->isXmlHttpRequest() && empty($request->get('_dynamic_reload'))) {
+                try{
+                    if($setting->getSettingType() === SettingType::SETTING_TYPE_JSON){
+                        $arrCollection = $form->get('settingValue')->getData();
+                        $str = json_encode($arrCollection->toArray());
+                        $setting->setSettingValue($str);
+                    }
+                    $this->manager->flush();
+                    return $this->json([
+                        'success' => true,
+                        'message' => 'Setting edit successfully.',
+                    ]);
+                }catch (\Exception $e){
 
-            return $this->json([
-                'success' => true,
-                'message' => 'Setting edit successfully.',
-            ]);
+                }
+            }
         }
 
         $form = $form->createView();
