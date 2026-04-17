@@ -1,5 +1,5 @@
 {
-    "name": "amzs/setting-bundle",
+    "name": "amzs-cms/setting-bundle",
     "description": "Module management setting for the CMS system",
     "type": "symfony-bundle",
     "require": {
