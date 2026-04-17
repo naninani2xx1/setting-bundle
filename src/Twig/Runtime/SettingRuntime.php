@@ -1,8 +1,8 @@
 <?php
 
-namespace Amzs\SettingBundle\Twig\Runtime;
+namespace AmzsCMS\SettingBundle\Twig\Runtime;
 
-use Amzs\SettingBundle\Service\SettingService;
+use AmzsCMS\SettingBundle\Service\SettingService;
 use Twig\Extension\RuntimeExtensionInterface;
 
 class SettingRuntime implements RuntimeExtensionInterface

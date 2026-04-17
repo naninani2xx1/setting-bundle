@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Amzs\SettingBundle\Controller;
+namespace AmzsCMS\SettingBundle\Controller;
 
-use Amzs\SettingBundle\Constant\SettingRoute;
-use Amzs\SettingBundle\Constant\SettingType;
-use Amzs\SettingBundle\Entity\Setting;
-use Amzs\SettingBundle\Form\SettingForm;
-use Amzs\SettingBundle\Service\SettingDataTable;
-use Amzs\SettingBundle\Service\SettingService;
+use AmzsCMS\SettingBundle\Constant\SettingRoute;
+use AmzsCMS\SettingBundle\Constant\SettingType;
+use AmzsCMS\SettingBundle\Entity\Setting;
+use AmzsCMS\SettingBundle\Form\SettingForm;
+use AmzsCMS\SettingBundle\Service\SettingDataTable;
+use AmzsCMS\SettingBundle\Service\SettingService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

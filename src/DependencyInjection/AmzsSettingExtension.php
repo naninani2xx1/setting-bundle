@@ -1,9 +1,9 @@
 <?php
 
-namespace Amzs\SettingBundle\DependencyInjection;
+namespace AmzsCMSSettingBundle\DependencyInjection;
 
-use Amzs\SettingBundle\Constant\SettingRoute;
-use Amzs\SettingBundle\Constant\SettingType;
+use AmzsCMSSettingBundle\Constant\SettingRoute;
+use AmzsCMSSettingBundle\Constant\SettingType;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
