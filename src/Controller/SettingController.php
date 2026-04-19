@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Amzs\SettingBundle\Controller;
+namespace AmzsCMS\SettingBundle\Controller;
 
-use Amzs\SettingBundle\Constant\SettingRoute;
-use Amzs\SettingBundle\Constant\SettingType;
-use Amzs\SettingBundle\Entity\Setting;
-use Amzs\SettingBundle\Form\SettingForm;
-use Amzs\SettingBundle\Service\SettingDataTable;
-use Amzs\SettingBundle\Service\SettingService;
+use AmzsCMS\SettingBundle\Constant\SettingRoute;
+use AmzsCMS\SettingBundle\Constant\SettingType;
+use AmzsCMS\SettingBundle\Entity\Setting;
+use AmzsCMS\SettingBundle\Form\SettingForm;
+use AmzsCMS\SettingBundle\Service\SettingDataTable;
+use AmzsCMS\SettingBundle\Service\SettingService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -77,13 +77,22 @@ class SettingController extends AbstractController
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->manager->persist($setting);
-            $this->manager->flush();
+            if ($request->isXmlHttpRequest() && empty($request->get('_dynamic_reload'))) {
+                try{
+                    if($setting->getSettingType() === SettingType::SETTING_TYPE_JSON){
+                        $arrCollection = $form->get('settingValue')->getData();
+                        $str = json_encode($arrCollection->toArray());
+                        $setting->setSettingValue($str);
+                    }
+                    $this->manager->flush();
+                    return $this->json([
+                        'success' => true,
+                        'message' => 'Setting edit successfully.',
+                    ]);
+                }catch (\Exception $e){
 
-            return $this->json([
-                'success' => true,
-                'message' => 'Setting edit successfully.',
-            ]);
+                }
+            }
         }
 
         $form = $form->createView();

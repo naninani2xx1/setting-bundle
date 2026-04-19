@@ -1,8 +1,8 @@
 <?php
 
-namespace Amzs\SettingBundle\Repository;
+namespace AmzsCMS\SettingBundle\Repository;
 
-use Amzs\SettingBundle\Entity\Setting;
+use AmzsCMS\SettingBundle\Entity\Setting;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

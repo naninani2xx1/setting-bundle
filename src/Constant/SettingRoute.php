@@ -1,6 +1,6 @@
 <?php
 
-namespace Amzs\SettingBundle\Constant;
+namespace AmzsCMS\SettingBundle\Constant;
 
 class SettingRoute
 {

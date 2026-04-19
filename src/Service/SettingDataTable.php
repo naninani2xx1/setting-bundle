@@ -1,10 +1,10 @@
 <?php
 
-namespace Amzs\SettingBundle\Service;
+namespace AmzsCMS\SettingBundle\Service;
 
-use Amzs\CoreBundle\Service\Datatable\BaseDataTable;
-use Amzs\SettingBundle\Entity\Setting;
-use Amzs\SettingBundle\Repository\SettingRepository;
+use AmzsCMS\CoreBundle\Service\Datatable\BaseDataTable;
+use AmzsCMS\SettingBundle\Entity\Setting;
+use AmzsCMS\SettingBundle\Repository\SettingRepository;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Asset\Packages;

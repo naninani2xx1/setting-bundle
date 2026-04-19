@@ -1,8 +1,8 @@
 <?php
 
-namespace Amzs\SettingBundle\Twig\Extension;
+namespace AmzsCMS\SettingBundle\Twig\Extension;
 
-use Amzs\SettingBundle\Twig\Runtime\SettingRuntime;
+use AmzsCMS\SettingBundle\Twig\Runtime\SettingRuntime;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
