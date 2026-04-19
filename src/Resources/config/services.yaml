@@ -37,7 +37,7 @@ services:
     arguments:
       $package: '@assets.packages'
       $repository: '@amzs.setting_bundle.setting_repository'
-      $thumbnailDefaultPath: '%amzs_core.assets_manager.thumbnail_default%'
+      $parameterBag: '@parameter_bag'
 
   # Create an alias, so that - by default - if you type-hint SiteUpdateManager,
   # the site_update_manager.superadmin will be used
