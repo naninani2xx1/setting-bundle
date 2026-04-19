@@ -70,6 +70,7 @@
                                 return `<img src="${data}" class="img-thumbnail w-175px">`;
                             }
                             if(row.setting_type === '{{ setting_type_json }}'){
+                                console.log(row, row.setting_value)
                                 return `<ul>${row.setting_value.map(el => `<li><mark>${el.key}</mark>: ${el.value}</li>`).join('')}</ul>`;
                             }
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Amzs\SettingBundle\Service;
+namespace AmzsCMS\SettingBundle\Service;
 
-use Amzs\SettingBundle\Entity\Setting;
-use Amzs\SettingBundle\Repository\SettingRepository;
+use AmzsCMS\SettingBundle\Entity\Setting;
+use AmzsCMS\SettingBundle\Repository\SettingRepository;
 use Symfony\Contracts\Cache\CacheInterface;
 
 class SettingService

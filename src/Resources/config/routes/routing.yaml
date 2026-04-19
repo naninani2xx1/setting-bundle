@@ -1,3 +1,3 @@
-amzs_administrator_user_bundle:
+amzs_administrator_setting_bundle:
   resource: "@AmzsSettingBundle/Resources/config/routes/setting.yaml"
   prefix:   /settings

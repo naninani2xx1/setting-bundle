@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Amzs\SettingBundle\Form;
+namespace AmzsCMS\SettingBundle\Form;
 
-use Amzs\SettingBundle\Constant\SettingType;
+use AmzsCMS\SettingBundle\Constant\SettingType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;

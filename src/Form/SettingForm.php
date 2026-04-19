@@ -1,11 +1,11 @@
 <?php
 
-namespace Amzs\SettingBundle\Form;
+namespace AmzsCMS\SettingBundle\Form;
 
 
-use Amzs\CoreBundle\Traits\Form\FormButtonsTrait;
-use Amzs\SettingBundle\Constant\SettingType;
-use Amzs\SettingBundle\Entity\Setting;
+use AmzsCMS\CoreBundle\Traits\Form\FormButtonsTrait;
+use AmzsCMS\SettingBundle\Constant\SettingType;
+use AmzsCMS\SettingBundle\Entity\Setting;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;

@@ -1,14 +1,14 @@
 <?php
 
-namespace Amzs\SettingBundle\Entity;
+namespace AmzsCMS\SettingBundle\Entity;
 
-use Amzs\CoreBundle\Traits\Doctrine\Timestampable;
-use Amzs\SettingBundle\Constant\SettingType;
+use AmzsCMS\CoreBundle\Traits\Doctrine\Timestampable;
+use AmzsCMS\SettingBundle\Constant\SettingType;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass="Amzs\SettingBundle\Repository\SettingRepository")
+ * @ORM\Entity(repositoryClass="AmzsCMS\SettingBundle\Repository\SettingRepository")
  * @ORM\Table(name="amzs_setting")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  * @ORM\HasLifecycleCallbacks
@@ -108,7 +108,7 @@ class Setting
     {
         $this->description = $description;
     }
-
+    
     // custom
     public function isSettingTypeImage(): bool
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Amzs\SettingBundle;
+namespace AmzsCMS\SettingBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
