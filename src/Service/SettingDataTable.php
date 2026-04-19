@@ -2,23 +2,25 @@
 
 namespace AmzsCMS\SettingBundle\Service;
 
+use AmzsCMS\CoreBundle\Constant\CoreConfig;
 use AmzsCMS\CoreBundle\Service\Datatable\BaseDataTable;
 use AmzsCMS\SettingBundle\Entity\Setting;
 use AmzsCMS\SettingBundle\Repository\SettingRepository;
 use Doctrine\ORM\QueryBuilder;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Asset\Packages;
 
 class SettingDataTable extends BaseDataTable
 {
     protected $entityAlias = 'setting';
-    private $thumbnailDefaultPath;
     private $package;
-    public function __construct(SettingRepository $repository, string $thumbnailDefaultPath, Packages $package)
+    private $parameterBag;
+    public function __construct(SettingRepository $repository, Packages $package, ParameterBagInterface $parameterBag)
     {
         parent::__construct($repository);
-        $this->thumbnailDefaultPath = $thumbnailDefaultPath;
         $this->package = $package;
+        $this->parameterBag = $parameterBag;
     }
 
     // ================== Tùy chỉnh QueryBuilder từ đầu (nếu cần JOIN) ==================
@@ -63,7 +65,9 @@ class SettingDataTable extends BaseDataTable
                 'setting_value' => $setting->isSettingTypeJson()
                     ? json_decode($val, true)
                     : ($setting->isSettingTypeImage()
-                        ? (empty($val) ? $this->package->getUrl($this->thumbnailDefaultPath): $val)
+                        ? (empty($val) ? $this->package->getUrl(
+                            $this->parameterBag->get(CoreConfig::PATH_TREE_BUILDER. '.assets_manager.thumbnail_default')
+                        ): $val)
                         : $val),
                 'setting_type'  => $setting->getSettingType(),
                 'created_at'    => $setting->getCreatedAt()->format('Y-m-d H:i:s'),
